@@ -62,6 +62,8 @@ Furthermore, we consider doing appropriate transformation on images would improv
 
 ### Summary
 
+### Other Notes
+We deleted the .pth in folder weights and output, the full weight dicts are so large so that GitHub does not allow. Contact me (williamdlye(at)outlook) if you need these.
 
 ### References
 https://github.com/thedeepreader/detr_tutorial
