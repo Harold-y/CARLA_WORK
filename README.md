@@ -60,11 +60,25 @@ Furthermore, we consider doing appropriate transformation on images would improv
 
 ### Discussion
 
+DETR is an end-to-end model and proven to perform well on object detection. Our examples on the KITTI dataset agrees with that statement. However, there are some problems with the naive DETR model. For example, the complete training time is long and requires a relateively high computational power. In the original paper, they used 16 V100 GPUs and 300 epochs. If we only have limited computational power, transfer learning is a good candidate for reducing training time. Other variants of DETR model, such as the Deformable DETR, are also designed to mitigate this issue and could be one solution. 
+
+We tested the DETR model on the CARLA simulator and also on the KITTI dataset using transfer learning. The results are generally good, the anchor boxes for cars are predicted in a relatively precise way. There are some problems with this model, however. One problem is that it performs better at larger objects and less ideal on small objects. Second, sometimes it predicts the anchor boxes with a slight deviate position, possibly due to insufficient training epoch in the transfer learning. Third, the result of the model is restricted due to the angle, image resolution, transformation, etc.
+
+For the first problem, one possible solution is to use Deformable DETR as it mitigates the problem with DETR detection on small objects. It is easy to resolve the second problem with more computational power: add more epochs to better train the model. For the third problem, there could be many ways to address it. Using a dataset of photos from multiple angles instead of only one angle may help to improve because such a dataset would improve the model's ability to do generalization. Moreover, using data augmentation to do slight change on the dataset images may also help for the model to generalize in a wider setting.
+
+There could be some applications of the DETR model to CARLA simulator as well as to real life scenarios. We could set up detection cameras in busy-traffic roads and intersections to monitor the traffic and send data to nearby autonomous driving vehicles to improve the precision of making predictions. Moreover, such a model could also be implemented in the autonomous driving car itself with other detection models such as YOLO v-5 to further decrease the detection error.
+
 ### Summary
+In our report, we used the DETR model and achieved the object detection goal in the CARLA simulator using the pre-trained weights and also the weights after the transfer learning on KITTI dataset. The results are generally good as the labels and boxes are mostly accurate. Some improvements could be done via using a better DETR model (e.g., Deformable DETR), train more epochs to converge, choosing a better dataset and implement data augmentation before training. Our work could be helpful in scenario of using such a model to achieve traffic detection of vehicles and also on vehicle itself to detect its surroundings. 
 
 ### Other Notes
 We deleted the .pth in folder weights and output, the full weight dicts are so large so that GitHub does not allow. Contact me (williamdlye(at)outlook) if you need these.
 
 ### References
 https://github.com/thedeepreader/detr_tutorial
+
 https://github.com/facebookresearch/detr
+
+Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., & Zagoruyko, S. (2020, August). End-to-end object detection with transformers. In European conference on computer vision (pp. 213-229). Springer, Cham.
+
+Zhu, X., Su, W., Lu, L., Li, B., Wang, X., & Dai, J. (2020). Deformable detr: Deformable transformers for end-to-end object detection. arXiv preprint arXiv:2010.04159.
