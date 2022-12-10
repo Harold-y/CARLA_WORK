@@ -1,4 +1,4 @@
-# CARLA Work
+# DETR at object detection in CARLA
 This repository is about CARLA research at UW-Madison
 
 ## First Glance
